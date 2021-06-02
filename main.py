@@ -5,12 +5,38 @@ import random
 time.sleep(2)
 
 
-#ajusta o layout para o layout padrao que o programa atua
+# Ajusta o layout para o layout padrao que o programa atua
 def ajustalayout():
     pyautogui.click(545, 59) # seleciona caixa de zoom
     pyautogui.click(506, 125) # ajusta ao tamanho padrao
     pyautogui.click(25, 275) # seleciona ferramentas de desenho
     pyautogui.click(81, 378) # clica na polilinhas (padrao)
+
+
+# Abre um arquivo txt com os paragrafos que serao escritos max: 800 caracteres e 117 palavras
+def abretexto():
+    # Abre o arquivo que vai ser trabalhado
+    arquivo = open('base.txt', 'r', encoding="utf8")
+
+    # Passa o conteudo pra uma variavel a
+    a = arquivo.read()
+
+    # Separa todo o conteudo em uma lista, que separa onde tem o caractere @
+    cortada = a.split("@")
+    # Cria uma lista onde ficara o texto com todo o tratamento
+    nova = []
+
+    # Laco que trata o texto para deixar pronto para manipulacao ou impressao
+    for m in cortada:
+        z = m.replace("\n", "")
+        nova.append(z)
+
+    # Fecha o arquivo com o texto original
+    arquivo.close()
+
+    # Retorna a lista com o texto tratado
+    return nova
+
 
 # cria duas coordenadas e clica no ponto dado pelas coordenadas
 def criarponto():
@@ -69,12 +95,12 @@ def desenharlinhas(num):
 
 # Escreve o texto passado por um arquivo txt nos campos requisitados
 def escrevertexto():
-    texto = "Nam sollicitudin risus a arcu euismod, non congue ante euismod. Aenean scelerisque cursus lobortis. Aliquam blandit vestibulum tempor. Nunc ut molestie ante. Vivamus eget dictum tortor. Integer at tincidunt elit. Proin at aliquet turpis. In pharetra orci eu turpis venenatis varius quis quis felis. Duis et enim nibh. Nullam suscipit turpis eget sem sagittis, ut malesuada nunc dapibus. Praesent ex elit, pellentesque sed pharetra non, aliquet non lacus. Quisque vitae varius urna, vitae tempor tortor. Fusce arcu diam, consequat dignissim magna eget, consequat consequat elit. Duis a felis odio. Donec tincidunt purus vitae lacus porta aliquam."
+    texto = abretexto()
     coord = ((551,281),(468,358),(548,432),(536,509))
     for i in range(4):
-        pyautogui.click(15,421) #ferramenta texto
-        pyautogui.click(coord[i]) #clica na caixa de texto desejada
-        pyautogui.write(texto)
+        pyautogui.click(15,421) # ferramenta texto
+        pyautogui.click(coord[i]) # clica na caixa de texto desejada
+        pyautogui.write(texto[i]) # coloca o texto correspondente
 
 
 # Move o simbolo inicial criado completo para o fim da pagina
